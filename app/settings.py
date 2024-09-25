@@ -11,11 +11,43 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import logging
+import graypy
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+        'graylog': {
+            'level': 'INFO',
+            'class': 'graypy.GELFUDPHandler',
+            'host': '127.0.0.1', 
+            'port': 12201,       
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'graylog'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'myapp': {  
+            'handlers': ['console', 'graylog'],
+            'level': 'DEBUG',  
+            'propagate': True,
+        },
+    },
+}
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -51,6 +83,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'app.urls'
 

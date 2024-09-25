@@ -1,8 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Usuario
 import secrets
+import logging
+
+logger = logging.getLogger('myapp')
 
 def criarConta(request):
+    logger.info("Esse é um log de teste enviado para o Graylog")
     usuarios = Usuario.objects.all()
     return render(request, 'index.html', {"usuarios": usuarios})
 
