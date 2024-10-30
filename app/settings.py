@@ -65,6 +65,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,6 +76,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -84,6 +86,22 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
 
 ROOT_URLCONF = 'app.urls'
 
@@ -106,6 +124,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -115,7 +134,8 @@ DATABASES = {
         'NAME': 'banco_teste',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': '127.0.0.1',
+            'host': '127.0.0.1', 
+            'port': 27017,         
         }
     }
 }

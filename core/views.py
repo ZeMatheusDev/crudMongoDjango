@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Usuario
 import secrets
+from django.http import JsonResponse
 import logging
 
 logger = logging.getLogger('myapp')
@@ -45,4 +46,9 @@ def apagar(request, token):
     Usuario.objects.filter(token=token).delete()
     usuarios = Usuario.objects.all()
     return render(request, 'home.html', {'usuarios': usuarios})
+
+def getUsers(request):
+    print("achou")
+    usuarios = Usuario.objects.all().values() 
+    return JsonResponse(list(usuarios), safe=False) 
 
